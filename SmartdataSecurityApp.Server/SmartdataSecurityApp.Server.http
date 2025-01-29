@@ -1,0 +1,6 @@
+@SmartdataSecurityApp.Server_HostAddress = http://localhost:5247
+
+GET {{SmartdataSecurityApp.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

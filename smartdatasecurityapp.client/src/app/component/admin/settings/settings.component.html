@@ -1,0 +1,37 @@
+<div layout="column" layout-fill class="layout-container">
+    <mat-grid-list cols="4" rowHeight="2:1" gutterSize="16px">
+      <h2>Theme Demo</h2>
+      <mat-form-field appearance="fill">
+        <mat-label><p>Current Theme: {{ themeSelect }}</p></mat-label>
+        <mat-select [formControl]="themeSelect" (selectionChange)="onThemeChange($event)">
+            <mat-option *ngFor="let theme of themes" [value]="theme">
+              {{ theme }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+  
+      <section>
+        <div class="example-label">Basic</div>
+        <div class="example-button-row">
+          <button mat-button>Basic</button>
+          <button mat-button color="primary">Primary</button>
+          <button mat-button color="accent">Accent</button>
+          <button mat-button color="warn">Warn</button>
+          <button mat-button disabled>Disabled</button>
+          <a mat-button href="https://www.google.com/" target="_blank">Link</a>
+        </div>
+      </section>
+      <section>
+        <div class="example-label">Raised</div>
+        <div class="example-button-row">
+          <button mat-raised-button>Basic</button>
+          <button mat-raised-button color="primary">Primary</button>
+          <button mat-raised-button color="accent">Accent</button>
+          <button mat-raised-button color="warn">Warn</button>
+          <button mat-raised-button disabled>Disabled</button>
+          <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
+        </div>
+      </section>
+    </mat-grid-list>
+  </div>
+  

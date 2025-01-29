@@ -1,0 +1,42 @@
+<div class="login-container mat-elevation-z8">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2 class="login-title">Login</h2>
+  
+      <!-- Username Field -->
+       <div>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" required />
+            <mat-error *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+              Username is required
+            </mat-error>
+          </mat-form-field>
+       </div>
+  
+  
+       <div>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button" [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+       </div>
+    
+       <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+      <!-- Forgot Password -->
+      <div class="forgot-password">
+        <a  mat-button   (click)="onForgotPassword()" class="link">Forgot Password?</a>
+      </div>
+  
+      <!-- Submit Button -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </form>
+  </div>
+  

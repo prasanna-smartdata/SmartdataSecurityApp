@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+@import 'themes.scss';
+
+
+// =====================================
+// Define the light theme
+// =====================================
+// .light-theme {
+//   @include angular-material-theme($light-theme);
+// }
+
+// .dark-theme {
+//   // use our theme with angular-material-theme mixin
+//   @include angular-material-theme($dark-theme);
+//   background-color: black;
+// }
+// html {
+//   color-scheme: light dark;
+//   @include mat.theme((
+//    color: mat.$violet-palette,  
+//     typography: (
+//         plain-family: Roboto,
+//         brand-family: Open Sans,
+//         bold-weight: 800,
+//         medium-weight: 500,
+//         regular-weight: 300,
+//       ),
+//     density: 0
+//   ));
+// }
+
+body { margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;   
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  @include mat.all-component-typographies($theme1);
+}
+
+// :root {
+//   @extend .theme1; // Default theme applied
+// }
+
+@media (max-width: 600px) {
+    mat-grid-tile {
+      height: 150px !important;
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 960px) {
+    mat-grid-tile {
+      height: 200px !important;
+    }
+  }
+  
+  @media (min-width: 961px) {
+    mat-grid-tile {
+      height: 300px !important;
+    }
+  }
+  

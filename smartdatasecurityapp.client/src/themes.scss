@@ -1,0 +1,58 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$theme1-custom-green: #93c83f; 
+$theme1-custom-white:#fffffe;
+$theme1-custom-footer:#d9d9d9;
+// Define palette 1
+$palette1-primary: mat.m2-define-palette(mat.$m2-green-palette, 500);
+$palette1-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200);
+$palette1-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$theme1: mat.m2-define-light-theme((
+    color: (
+      primary: $palette1-primary,
+      accent: $palette1-accent,
+      warn: $palette1-warn,
+    ),
+   
+  ));
+.theme1 .mat-toolbar {
+  //  background-color: $custom-green; 
+  background-image: linear-gradient( to left, mat.m2-get-color-from-palette($palette1-primary), $theme1-custom-white);
+
+  }
+
+.theme1 .mat-toolbar.footer{
+    background-color: $theme1-custom-footer; 
+  //  background-image: linear-gradient( to left, $cutom-footer, $custom-white);
+  }
+
+// Define palette 2
+$theme2-custom-blue: #93c83f; 
+$theme2-custom-white:#fffffe;
+$theme2-custom-footer:#d9d9d9;
+$palette2-primary: mat.m2-define-palette(mat.$m2-blue-palette, 500);
+$palette2-accent: mat.m2-define-palette(mat.$m2-lime-palette, A200);
+$palette2-warn: mat.m2-define-palette(mat.$m2-orange-palette);
+
+$theme2: mat.m2-define-light-theme((
+    color: (
+      primary: $palette2-primary,
+      accent: $palette2-accent,
+      warn: $palette2-warn,
+    )
+  ));
+.theme2 .mat-toolbar {
+   // background-color: $theme2-custom-blue; 
+    background-image: linear-gradient( to left, mat.m2-get-color-from-palette($palette2-primary), $theme1-custom-white);
+
+  }
+// Theme mixins
+.theme1 {
+  @include mat.all-component-themes($theme1);
+}
+
+.theme2 {
+  @include mat.all-component-themes($theme2);
+}
