@@ -6,6 +6,7 @@ import { LoginRequest } from '../models/loginrequest.model';
 
 interface LoginResponse {
   message: string;
+  user: any;
   token: string;
 }
 @Injectable({

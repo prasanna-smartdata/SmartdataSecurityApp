@@ -1,79 +1,80 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using SmartdataSecurityService;
+using Microsoft.EntityFrameworkCore;
+using SmartdataSecurityService; // Replace with actual namespace
 using SmartdataSecurityService.Interfaces;
 using SmartdataSecurityService.Repositories;
-using MySql.EntityFrameworkCore;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
-builder.Services.AddControllers();
+// Add logging
+builder.Logging.ClearProviders();   
+builder.Logging.AddConsole();      
+builder.Logging.AddDebug();
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartdataSecurity API", Version = "v1" });
+});
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:JwtTokenKey"])),
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:JwtTokenKey"] ?? "")),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true
+        };
+    });
 
-    };
-});
-// Add DbContext for MySQL
 builder.Services.AddDbContext<MySqlDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection")));
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")
+     ));
 
-IServiceCollection services = builder.Services;
-services.AddScoped<IDepartmentRepository, DepartmentRepository>()
-        .AddScoped<IEmployeeRepository, EmployeeRepository>();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
-
-
-// Middleware for development environment
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Middleware for serving Angular files and API requests
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseCors("AllowAll");
+
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); // Authentication middleware must be added before Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
-// Routing configuration
-app.UseRouting();
+app.MapControllers();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapFallbackToFile("index.html"); // Serves Angular's index.html for SPA routing
-});
+app.MapFallbackToFile("index.html");
 
 app.Run();

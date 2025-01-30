@@ -9,13 +9,9 @@ using System.Threading.Tasks;
 
 namespace SmartdataSecurityService.Repositories
 {
-    public class DepartmentRepository : RepositoryBase<Department>, IDepartmentRepository
+    public class TenantRepository : RepositoryBase<Tenant>, ITenantRepository
     {
-        private readonly MySqlDbContext _context;
-
-        public DepartmentRepository(MySqlDbContext context) : base(context) {
-            _context = context;
-        }
+        public TenantRepository(MySqlDbContext context) : base(context) { }
     }
 
 }

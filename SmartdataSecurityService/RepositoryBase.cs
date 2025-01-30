@@ -9,10 +9,10 @@ namespace SmartdataSecurityService
 {
     public class RepositoryBase<T> : IRepository<T> where T : class
     {
-        protected readonly DbContext _context;
+        protected readonly MySqlDbContext _context;
         protected readonly DbSet<T> _dbSet;
 
-        public RepositoryBase(DbContext context)
+        public RepositoryBase(MySqlDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

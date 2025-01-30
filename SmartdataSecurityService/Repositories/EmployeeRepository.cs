@@ -11,7 +11,7 @@ namespace SmartdataSecurityService.Repositories
 {
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(DbContext context) : base(context) { }
+        public EmployeeRepository(MySqlDbContext context) : base(context) { }
     }
 
 }
