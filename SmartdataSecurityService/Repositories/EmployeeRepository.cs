@@ -17,7 +17,7 @@ namespace SmartdataSecurityService.Repositories
 
         public async Task<IEnumerable<Employee>> GetEmployeesByTenantIdAsync(int tenantId)
         {
-            return await _dbSet.Where(e => e.TenantId == tenantId).Include(e => e.Role).ToListAsync();
+            return await _dbSet.Where(e => e.TenantId == tenantId && e.Status=="1").Include(e => e.Role).ToListAsync();
         }
     }
 

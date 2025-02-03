@@ -21,14 +21,14 @@ namespace SmartdataSecurityApp.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
         {
-            return await _context.Assignments.ToListAsync();
+            return await _context.Assignment.ToListAsync();
         }
 
         // GET: api/assignments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Assignment>> GetAssignment(int id)
         {
-            var assignment = await _context.Assignments.FindAsync(id);
+            var assignment = await _context.Assignment.FindAsync(id);
 
             if (assignment == null)
             {
@@ -42,7 +42,7 @@ namespace SmartdataSecurityApp.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Assignment>> CreateAssignment(Assignment assignment)
         {
-            _context.Assignments.Add(assignment);
+            _context.Assignment.Add(assignment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetAssignment), new { id = assignment.Id }, assignment);
@@ -82,13 +82,13 @@ namespace SmartdataSecurityApp.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAssignment(int id)
         {
-            var assignment = await _context.Assignments.FindAsync(id);
+            var assignment = await _context.Assignment.FindAsync(id);
             if (assignment == null)
             {
                 return NotFound();
             }
 
-            _context.Assignments.Remove(assignment);
+            _context.Assignment.Remove(assignment);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -96,7 +96,7 @@ namespace SmartdataSecurityApp.Server.Controllers
 
         private bool AssignmentExists(int id)
         {
-            return _context.Assignments.Any(e => e.Id == id);
+            return _context.Assignment.Any(e => e.Id == id);
         }
     }
 }
