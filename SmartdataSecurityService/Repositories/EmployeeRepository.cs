@@ -11,7 +11,14 @@ namespace SmartdataSecurityService.Repositories
 {
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(MySqlDbContext context) : base(context) { }
+        public EmployeeRepository(MySqlDbContext context) : base(context) {
+        
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeesByTenantIdAsync(int tenantId)
+        {
+            return await _dbSet.Where(e => e.TenantId == tenantId).Include(e => e.Role).ToListAsync();
+        }
     }
 
 }

@@ -22,6 +22,7 @@ namespace SmartdataSecurityService
 
         public async Task<T?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
 
+
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);

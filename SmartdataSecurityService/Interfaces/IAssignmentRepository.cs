@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace SmartdataSecurityService.Interfaces
 {
-    public interface IEmployeeRepository : IRepository<Employee> {
+    public interface IAssignmentRepository : IRepository<Assignment> { }
 
-        Task<IEnumerable<Employee>> GetEmployeesByTenantIdAsync(int tenantId);
-    }
 }

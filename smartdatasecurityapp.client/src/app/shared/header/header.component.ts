@@ -5,7 +5,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
@@ -14,6 +14,7 @@ import {
   selectIsLoggedIn,
   selectUser,
 } from '../../store/selectors/auth.selectors';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -35,18 +36,25 @@ export class HeaderComponent {
   isLoggedIn!: boolean;
   user!: any;
 
-  constructor(private store: Store) {
-    this.store.select(selectIsLoggedIn).subscribe((loggedIn) => {
-      this.isLoggedIn = loggedIn;
-      console.log('Logged In Status:', loggedIn);
-    });
+  constructor(
+    private store: Store,
+    private auth: AuthService,
+    private router: Router
+  ) {
+    const token = localStorage.getItem('authToken'); // Get token from localStorage
+
+    if (!token) {
+      this.isLoggedIn = false;
+    } else this.isLoggedIn = true;
 
     this.store.select(selectUser).subscribe((user) => {
       this.user = user;
-      console.log('User:', user);
     });
   }
   logout() {
+    this.isLoggedIn = false;
+    this.auth.removeToken();
     this.store.dispatch({ type: '[Auth] Logout' });
+    this.router.navigateByUrl('/');
   }
 }

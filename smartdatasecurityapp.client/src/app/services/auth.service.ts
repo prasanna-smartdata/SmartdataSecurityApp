@@ -22,9 +22,7 @@ export class AuthService {
       userName: username,
       password: password,
     };
-    // this.http.get('/api/token').subscribe((result) => {
-    //   console.log(result);
-    // });
+
     return this.http.post<LoginResponse>(`${this.apiUrl}`, request);
   }
 
@@ -46,5 +44,24 @@ export class AuthService {
   // Check if the user is logged in
   isLoggedIn(): boolean {
     return this.getToken() !== null;
+  }
+
+  isTokenExpired(token: string): boolean {
+    if (!token) return true;
+
+    const decodedToken = this.decodeToken(token);
+    if (!decodedToken.exp) return true;
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decodedToken.exp < currentTime;
+  }
+
+  decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1]; // JWT token structure is base64.header.payload.signature
+      return JSON.parse(atob(payload)); // Decode the payload
+    } catch (e) {
+      return {};
+    }
   }
 }

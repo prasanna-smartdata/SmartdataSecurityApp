@@ -1,0 +1,67 @@
+@use '@angular/material' as mat;
+@include mat.core(); // Ensure core styles are included
+
+// Define a mixin to use Material theme colors
+@mixin themed-table($theme) {
+  $primary: mat.get-color-from-palette($theme, primary);
+  $accent: mat.get-color-from-palette($theme, accent);
+  $warn: mat.get-color-from-palette($theme, warn);
+  $background: mat.get-color-from-palette($theme, background, card);
+  $border-color: mat.get-color-from-palette($theme, divider);
+
+  mat-card {
+    padding: 16px;
+    margin: 16px;
+    background-color: $background;
+    border: 1px solid $border-color; // Add border around the card
+    border-radius: 4px; // Optional: for rounded corners
+  }
+
+  mat-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid $border-color;
+  }
+
+  mat-header-row, mat-row {
+    border-bottom: 1px solid $border-color;
+  }
+
+  mat-header-cell, mat-cell {
+    border-right: 1px solid $border-color;
+    padding: 8px;
+  }
+
+  mat-header-cell:last-child, mat-cell:last-child {
+    border-right: none;
+  }
+
+  mat-header-cell {
+    background-color: mat.get-color-from-palette($theme, primary, lighter);
+    color: mat.get-color-from-palette($theme, primary, default);
+    font-weight: bold;
+    text-align: left;
+  }
+
+  mat-chip {
+    color: white;
+    font-weight: bold;
+  }
+
+  mat-chip[color="primary"] {
+    background-color: $primary;
+  }
+
+  mat-chip[color="warn"] {
+    background-color: $warn;
+  }
+}
+
+// // Apply the mixin to the component theme
+// @include themed-table(mat.define-light-theme((
+//   color: (
+//     primary: mat.define-palette(mat.$indigo-palette),
+//     accent: mat.define-palette(mat.$pink-palette),
+//     warn: mat.define-palette(mat.$red-palette)
+//   )
+// )));

@@ -1,0 +1,17 @@
+.data-grid-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  .responsive-grid {
+    width: 100%;
+    min-width: 600px; /* Ensures grid does not shrink too much */
+  }
+  
+  @media (max-width: 768px) {
+    .responsive-grid {
+      min-width: 100%;
+    }
+  }
+  

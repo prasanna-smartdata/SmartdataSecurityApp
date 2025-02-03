@@ -9,6 +9,7 @@ import { SettingsComponent } from './component/admin/settings/settings.component
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './component/login/login.component';
 import { AuthGuard } from './auth.guard';
+import { AssignmentsComponent } from './component/admin/assignments/assignments.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
           {
             path: 'dashboard',
             component: AdminDashboardComponent,
+            canActivate: [AuthGuard],
+          },
+          {
+            path: 'assignments',
+            component: AssignmentsComponent,
             canActivate: [AuthGuard],
           },
           {

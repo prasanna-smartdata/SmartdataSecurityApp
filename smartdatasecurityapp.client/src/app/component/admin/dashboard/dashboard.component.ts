@@ -4,10 +4,11 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
+import { EmployeesComponent } from '../employees/employees.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatGridListModule, MatCard, CommonModule, RouterModule],
+  imports: [MatGridListModule, CommonModule, RouterModule, EmployeesComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

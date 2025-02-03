@@ -20,7 +20,18 @@ export class EmployeeService {
       `Bearer ${localStorage.getItem('authToken')}`
     );
 
-    console.log(headers);
     return this.http.get<Employee>(url, { headers });
+  }
+
+  getEmployees(tenantId: number): Observable<Employee[]> {
+    const url = `${this.apiUrl}/tenant/${tenantId}`;
+
+    // Add any necessary headers, such as Authorization headers with the JWT token
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${localStorage.getItem('authToken')}`
+    );
+
+    return this.http.get<Employee[]>(url, { headers });
   }
 }

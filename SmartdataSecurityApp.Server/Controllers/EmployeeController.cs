@@ -63,6 +63,28 @@ namespace SmartdataSecurityApp.Server.Controllers
             }
         }
 
+        // GET: api/employee/tenant/{tenantId}
+        [HttpGet("tenant/{tenantId}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByTenantId(int tenantId)
+        {
+            try
+            {
+                var employees = await _employeeRepository.GetEmployeesByTenantIdAsync(tenantId);
+                if (employees == null || !employees.Any())
+                {
+                    return NotFound($"No employees found for Tenant ID {tenantId}.");
+                }
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error fetching employees for Tenant ID {tenantId}: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
+
         // POST: api/employee
         [HttpPost]
         public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)

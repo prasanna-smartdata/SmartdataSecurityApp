@@ -17,6 +17,7 @@ import { login } from '../../store/actions/auth.actions';
 import { Employee } from '../../models/employee.model';
 import { EmployeeService } from '../../services/employee.service';
 import { Router } from '@angular/router';
+import { addEmployee } from '../../store/actions/employee.actions';
 
 @Component({
   selector: 'app-login',
@@ -74,7 +75,7 @@ export class LoginComponent {
           this.employeeService.getEmployeeById(user.employeeId).subscribe(
             (data) => {
               this.employee = data;
-              console.log(this.employee.status === 1);
+              this.store.dispatch(addEmployee({ employee: data }));
 
               if (this.employee.status === 1) {
                 switch (String(this.employee.roleId)) {
