@@ -1,7 +1,10 @@
-﻿namespace SmartdataSecurity.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SmartdataSecurity.Model
 {
     public class Role
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }

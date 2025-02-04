@@ -1,7 +1,10 @@
-﻿namespace SmartdataSecurity.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SmartdataSecurity.Model
 {
     public class EmployeeAssignments
     {
+        [Key]
         public int Id { get; set; }
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; } // Navigation property to Employee

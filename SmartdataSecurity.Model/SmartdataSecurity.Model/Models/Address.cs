@@ -1,7 +1,10 @@
-﻿namespace SmartdataSecurity.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SmartdataSecurity.Model
 {
     public class Address
     {
+        [Key]
         public int Id { get; set; }
         public string Address1 { get; set; } = string.Empty;
 

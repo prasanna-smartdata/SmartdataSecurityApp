@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace SmartdataSecurity.Model
 {
-    public class User
+    public class TenantAssignments
     {
         [Key]
         public int Id { get; set; }
-        public string UserId {  get; set; }
-        public string Password { get; set; }
-        public int EmployeeId {  get; set; }
+        public int TenantId { get; set; }
+        public int AssignmentId { get; set; }
+        public virtual Tenant Tenant { get; set; }
+        public virtual Assignment Assignment { get; set; }
 
-        public Employee Employee { get; set; }
     }
 }

@@ -1,9 +1,11 @@
-﻿using System.Reflection.Emit;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection.Emit;
 
 namespace SmartdataSecurity.Model
 {
     public class Employee
     {
+        [Key]
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
