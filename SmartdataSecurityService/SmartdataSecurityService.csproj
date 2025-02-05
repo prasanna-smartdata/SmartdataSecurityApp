@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartdataSecurity.Model\SmartdataSecurity.Model\SmartdataSecurity.Model.csproj" />
+    <ProjectReference Include="..\SmartdataSecurity.Model\SmartdataSecurity.Model.csproj" />   
   </ItemGroup>
 
 </Project>

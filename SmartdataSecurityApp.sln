@@ -9,7 +9,7 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "smartdatasecurityapp", "sma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartdataSecurityService", "SmartdataSecurityService\SmartdataSecurityService.csproj", "{0CB2E953-2B12-4ABD-AB84-86CC70B36C35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartdataSecurity.Model", "SmartdataSecurity.Model\SmartdataSecurity.Model\SmartdataSecurity.Model.csproj", "{BAD4C076-5B61-46CB-98E5-8C90E8E3EFAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartdataSecurity.Model", "SmartdataSecurity.Model\SmartdataSecurity.Model.csproj", "{BAD4C076-5B61-46CB-98E5-8C90E8E3EFAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

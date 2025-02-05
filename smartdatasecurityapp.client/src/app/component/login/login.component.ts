@@ -77,7 +77,7 @@ export class LoginComponent {
               this.employee = data;
               this.store.dispatch(addEmployee({ employee: data }));
 
-              if (this.employee.status === 1) {
+              if (this.employee.status === '1') {
                 switch (String(this.employee.roleId)) {
                   case '1':
                     this.router.navigateByUrl('/superadmin/dashboard');

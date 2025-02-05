@@ -51,13 +51,14 @@ export class EmployeesComponent implements OnInit {
   fetchEmployees() {
     this.employeeService.getEmployees(1).subscribe(
       (employees) => {
+        console.log(employees);
         const employeesMap: Employee[] = employees.map((employee) => {
           const fullName =
             (employee.firstName || '') +
             (employee.middleName ? ' ' + employee.middleName : '') +
             (employee.lastName ? ' ' + employee.lastName : '');
 
-          const active = employee.status === 1 ? 'Active' : 'InActive';
+          const active = employee.status === '1' ? 'Active' : 'InActive';
 
           // Return a new employee object with updated properties
           return {

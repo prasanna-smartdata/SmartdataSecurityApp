@@ -12,7 +12,7 @@ export interface Employee {
   skills?: string;
   role: Role;
   //token?: string; // (Optional) JWT token for authentication
-  status: number; // User account status
+  status: string; // User account status
   permissions?: string[]; // Array of permissions, e.g., ['read', 'write']
   active: string;
 }

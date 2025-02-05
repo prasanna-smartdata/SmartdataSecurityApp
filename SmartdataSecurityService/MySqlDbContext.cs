@@ -46,52 +46,26 @@ namespace SmartdataSecurityService
             // Configure Employee entity
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.HasKey(e => e.EmployeeId); // Define primary key
+                entity.HasKey(e => e.EmployeeId);
 
-                entity.Property(e => e.EmployeeId)
-                    .HasColumnName("id")
-                    .IsRequired();
+                entity.Property(e => e.EmployeeId).HasColumnName("id");
+                entity.Property(e => e.FirstName).HasColumnName("first_name").IsRequired();
+                entity.Property(e => e.LastName).HasColumnName("last_name").IsRequired();
+                entity.Property(e => e.MiddleName).HasColumnName("middle_name").IsRequired(false);
+                entity.Property(e => e.TenantId).HasColumnName("tenant_id").IsRequired();
+                entity.Property(e => e.Skills).HasColumnName("skills").HasColumnType("json").IsRequired(false);
+                entity.Property(e => e.Email).HasColumnName("email_id").IsRequired();
+                entity.Property(e => e.RoleId).HasColumnName("role_id").IsRequired();
+                entity.Property(e => e.CreatedDate).HasColumnName("created_date");
 
-                entity.Property(e => e.FirstName)
-                    .HasColumnName("first_name")
-                    .IsRequired();
+                entity.HasOne(e => e.Role)
+                    .WithMany(r => r.Employees)  // Explicitly link navigation property
+                    .HasForeignKey(e => e.RoleId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                entity.Property(e => e.LastName)
-                    .HasColumnName("last_name")
-                    .IsRequired();
-
-                entity.Property(e => e.MiddleName)
-                    .HasColumnName("middle_name")
-                    .IsRequired(false);
-
-                entity.Property(e => e.TenantId)
-                    .HasColumnName("tenant_id")
-                    .IsRequired();
-
-                entity.Property(e => e.Skills)
-                    .HasColumnName("skills")
-                    .HasColumnType("json")
-                    .IsRequired(false);
-
-                entity.Property(e => e.Email)
-                    .HasColumnName("email_id")
-                    .IsRequired();
-
-                entity.Property(e => e.RoleId)
-                    .HasColumnName("role_id")
-                    .IsRequired();
-
-                entity.Property(e => e.CreatedDate)
-                    .HasColumnName("created_date");
-
-                entity.HasOne(e => e.Role)  // Employee has one Role
-                    .WithMany()  // Role can be associated with many Employees
-                    .HasForeignKey(e => e.RoleId)  // Foreign key in Employee pointing to Role
-                    .OnDelete(DeleteBehavior.Restrict);  // Optional: set up delete behavior
-
-                entity.HasOne(e => e.Tenant) // Employee has one Tenant
-                    .WithMany() // Tenant can be associated with many Employees
-                    .HasForeignKey(e => e.TenantId)  // Foreign key in Employee pointing to Tenant
+                entity.HasOne(e => e.Tenant)
+                    .WithMany(t => t.Employees)  // Explicitly link navigation property
+                    .HasForeignKey(e => e.TenantId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 

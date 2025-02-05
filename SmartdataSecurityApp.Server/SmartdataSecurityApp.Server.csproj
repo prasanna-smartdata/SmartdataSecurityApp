@@ -32,10 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartdataSecurity.Model\SmartdataSecurity.Model\SmartdataSecurity.Model.csproj" />
-    <ProjectReference Include="..\smartdatasecurityapp.client\smartdatasecurityapp.esproj">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
+    <ProjectReference Include="..\SmartdataSecurity.Model\SmartdataSecurity.Model.csproj" />
     <ProjectReference Include="..\SmartdataSecurityService\SmartdataSecurityService.csproj" />
   </ItemGroup>
   
