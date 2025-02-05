@@ -15,4 +15,5 @@ export interface Employee {
   status: string; // User account status
   permissions?: string[]; // Array of permissions, e.g., ['read', 'write']
   active: string;
+  tenantId: string;
 }

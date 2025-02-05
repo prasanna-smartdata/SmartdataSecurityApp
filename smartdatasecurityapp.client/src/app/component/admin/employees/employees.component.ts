@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { TenantService } from '../../../services/tenant.service';
 @Component({
   selector: 'app-employees-list',
   templateUrl: './employees.component.html',
@@ -27,6 +28,7 @@ import { MatChipsModule } from '@angular/material/chips';
 })
 export class EmployeesComponent implements OnInit {
   errorMessage: string = '';
+  tenantId: number = 0;
   displayedColumns: string[] = [
     'id',
     'name',
@@ -42,14 +44,24 @@ export class EmployeesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private employeeService: EmployeeService, private store: Store) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private store: Store,
+    private tenantService: TenantService
+  ) {}
 
   ngOnInit() {
+    this.tenantService.tenantId$.subscribe((tenantId) => {
+      this.tenantId = Number(tenantId);
+      if (isNaN(this.tenantId)) {
+        this.tenantId = 0;
+      }
+      console.log('Tenant ID received:', this.tenantId);
+    });
     this.fetchEmployees();
   }
-
   fetchEmployees() {
-    this.employeeService.getEmployees(1).subscribe(
+    this.employeeService.getEmployees(this.tenantId).subscribe(
       (employees) => {
         console.log(employees);
         const employeesMap: Employee[] = employees.map((employee) => {

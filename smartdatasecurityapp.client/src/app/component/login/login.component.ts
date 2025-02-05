@@ -18,6 +18,7 @@ import { Employee } from '../../models/employee.model';
 import { EmployeeService } from '../../services/employee.service';
 import { Router } from '@angular/router';
 import { addEmployee } from '../../store/actions/employee.actions';
+import { TenantService } from '../../services/tenant.service';
 
 @Component({
   selector: 'app-login',
@@ -49,7 +50,8 @@ export class LoginComponent {
     private authService: AuthService,
     private employeeService: EmployeeService,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private tenantService: TenantService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -73,8 +75,9 @@ export class LoginComponent {
           this.store.dispatch(login({ user: user }));
 
           this.employeeService.getEmployeeById(user.employeeId).subscribe(
-            (data) => {
+            (data: Employee) => {
               this.employee = data;
+              this.tenantService.setTenantId(this.employee?.tenantId);
               this.store.dispatch(addEmployee({ employee: data }));
 
               if (this.employee.status === '1') {

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCard } from '@angular/material/card';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EmployeesComponent } from '../employees/employees.component';
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +15,10 @@ import { EmployeesComponent } from '../employees/employees.component';
 export class DashboardComponent {
   currentBreakpoint = '';
   items: any;
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute
+  ) {
     this.breakpointObserver
       .observe([
         Breakpoints.XSmall,
