@@ -41,10 +41,24 @@ jobs:
           set -e
           echo "Logging in to Docker on EC2..."
          # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+         echo "Pulling and running MySQL container..."
+          docker pull mysql:latest
+          docker stop mysql-container || true
+          docker rm mysql-container || true
+          docker run -d --name mysql-container \
+            -e MYSQL_ROOT_PASSWORD=Password!@# \
+            -e MYSQL_DATABASE=securitytraining_dev \
+            -e MYSQL_USER=smartdata \
+            -e MYSQL_PASSWORD=Password!@# \
+            -p 3306:3306 mysql:latest
+          
           echo "Pulling and deploying the Docker container..."
           docker pull bathapudi/smartdatatraining:latest
           docker stop docker-deploy-container || true
           docker rm docker-deploy-container || true
-          docker run -d --name docker-deploy-container -p 8080:8080 bathapudi/smartdatatraining:latest
+          docker run -d --name docker-deploy-container \
+            --link mysql-container:mysql \
+            -p 8080:8080 bathapudi/smartdatatraining:latest
+
           echo "Deployment completed!"
         EOF
