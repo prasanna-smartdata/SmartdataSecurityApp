@@ -5,33 +5,32 @@ services:
     image: mysql:8.0
     container_name: smartdata-mysql
     ports:
-        - "3306:3306"
-    entrypoint:
-        MYSQL_ROOT_PASSWORD:Password!@#
-        MYSQL_DATABASE:smartdatasecuritytraining
-
+      - "33061:3306"  # Map external port 33061 to MySQL's default port 3306 inside the container
+    environment:
+      - MYSQL_ROOT_PASSWORD=Password!@#
+      - MYSQL_DATABASE=smartdatasecuritytraining
     volumes:
-        - mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     networks:
-        - app-network
+      - app-network
 
   webapi:
     build:
-        context: .
-        dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: webapi-container
     ports:
-       - "5000:5000"
+      - "8080:8080"  # Ensure this matches the exposed port in your Dockerfile (8080)
     depends_on:
-       - mysql 
+      - mysql
     environment:
-       - ConnectionStrings__DefaultConnection=Server=smartdata-mysql;Database=smartdatasecuritytraining;User=root;Password=rootpass;Port=3306;
-volumes:
-    mysql_data:
+      - ConnectionStrings__DefaultConnection=Server=smartdata-mysql;Database=smartdatasecuritytraining;User=root;Password=Password!@#;Port=3306;
+    networks:
+      - app-network
 
+volumes:
+  mysql_data:
 
 networks:
   app-network:
     driver: bridge
-
-      

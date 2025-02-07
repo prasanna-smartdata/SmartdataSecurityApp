@@ -85,5 +85,10 @@ app.MapControllers();
 
 app.MapFallbackToFile("index.html");
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<MySqlDbContext>();
+    dbContext.Database.Migrate();  // Automatically applies migrations
+}
 
 app.Run();
