@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add logging
 builder.Logging.ClearProviders();   
 builder.Logging.AddConsole();      
@@ -81,6 +82,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
 app.MapFallbackToFile("index.html");
+
 
 app.Run();

@@ -63,7 +63,6 @@ export class EmployeesComponent implements OnInit {
   fetchEmployees() {
     this.employeeService.getEmployees(this.tenantId).subscribe(
       (employees) => {
-        console.log(employees);
         const employeesMap: Employee[] = employees.map((employee) => {
           const fullName =
             (employee.firstName || '') +

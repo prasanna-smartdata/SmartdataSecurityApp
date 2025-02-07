@@ -55,7 +55,7 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
-	<Target Name="BuildAngular" BeforeTargets="Build">
+	<Target Name="BuildAngular" BeforeTargets="Build"  Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') "  >
 		<Exec Command="npm run build" WorkingDirectory="..\smartdatasecurityapp.client" />
 	</Target>
 </Project>

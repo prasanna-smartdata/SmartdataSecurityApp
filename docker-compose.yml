@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: smartdata-mysql
+    ports:
+        - "3306:3306"
+    entrypoint:
+        MYSQL_ROOT_PASSWORD:Password!@#
+        MYSQL_DATABASE:smartdatasecuritytraining
+
+    volumes:
+        - mysql_data:/var/lib/mysql
+    networks:
+        - app-network
+
+  webapi:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: webapi-container
+    ports:
+       - "5000:5000"
+    depends_on:
+       - mysql 
+    environment:
+       - ConnectionStrings__DefaultConnection=Server=smartdata-mysql;Database=smartdatasecuritytraining;User=root;Password=rootpass;Port=3306;
+volumes:
+    mysql_data:
+
+
+networks:
+  app-network:
+    driver: bridge
+
+      
