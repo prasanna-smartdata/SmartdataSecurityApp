@@ -42,7 +42,7 @@ jobs:
           echo "Logging in to Docker on EC2..."
          # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           echo "Pulling and deploying the Docker container..."
-          docker pull "$DOCKER_USERNAME"/smartdatatraining:latest
+          docker pull bathapudi/smartdatatraining:latest
           docker stop docker-deploy-container || true
           docker rm docker-deploy-container || true
           docker run -d --name docker-deploy-container -p 8080:8080 "$DOCKER_USERNAME"/smartdatatraining:latest
