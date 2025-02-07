@@ -43,6 +43,12 @@ namespace SmartdataSecurityApp.Server.Controllers
             }
         }
 
+        [HttpGet("test")]
+        public IActionResult GetData()
+        {
+            return Ok("Success");
+        }
+
         // GET: api/employee/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployeeById(int id)
