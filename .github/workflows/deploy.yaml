@@ -3,7 +3,7 @@ name: Deploy to EC2 with Docker
 on:
   push:
     branches:
-      - master  # Change to the branch you want to deploy from
+      - master  # Change this if deploying from a different branch
 
 jobs:
   build-and-deploy:
@@ -32,8 +32,9 @@ jobs:
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
           set -e
+          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
           docker pull ${{ secrets.DOCKER_USERNAME }}/smartdatatraining:latest
           docker stop docker-deploy-container || true
           docker rm docker-deploy-container || true
-          docker run -d --name docker-deploy-container -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/docker-deploy-app:latest
+          docker run -d --name docker-deploy-container -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/smartdatatraining:latest
         EOF
