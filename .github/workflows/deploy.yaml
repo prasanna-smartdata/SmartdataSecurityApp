@@ -18,8 +18,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t $DOCKER_USERNAME/smartdatatraining:latest .
-        docker push $DOCKER_USERNAME/smartdatatraining:latest
+        docker build -t bathapudi/smartdatatraining:latest .
+        docker push bathapudi/smartdatatraining:latest
 
     - name: Set up SSH
       run: |
@@ -32,7 +32,7 @@ jobs:
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
           set -e
-          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+          docker login -u  bathapudi -p "${{ secrets.DOCKER_PASSWORD }}"
           docker pull ${{ secrets.DOCKER_USERNAME }}/smartdatatraining:latest
           docker stop docker-deploy-container || true
           docker rm docker-deploy-container || true
