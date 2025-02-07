@@ -18,8 +18,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/smartdatatraining:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/smartdatatraining:latest
+        docker build -t $DOCKER_USERNAME/smartdatatraining:latest .
+        docker push $DOCKER_USERNAME/smartdatatraining:latest
 
     - name: Set up SSH
       run: |
